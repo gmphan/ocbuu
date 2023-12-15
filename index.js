@@ -19,42 +19,42 @@ let config, certKeys
 
 !(async () => {
     try {
-        config      = await configBuilder();
-        certKeys    = await createCert();
-        /**
-         * options to implement https
-         */
-        const options = {
-            key: certKeys.serviceKey,
-            cert: certKeys.certificate
-        }
+            config      = await configBuilder();
+            certKeys    = await createCert();
+            /**
+             * options to implement https
+             */
+            const options = {
+                key: certKeys.serviceKey,
+                cert: certKeys.certificate
+            }
 
-        await mongoDbCon();
-        await routeRegister();
+            await mongoDbCon();
+            await routeRegister();
 
-        /**
-         * implement cookieSesstion to app Express.
-         */
-        app.use(
-            cookeSession({
-                maxAge: 30 * 24 * 60 * 60 * 1000,
-                keys: [config.cookieKeys]
-            }));
+            /**
+             * implement cookieSesstion to app Express.
+             */
+            app.use(
+                cookeSession({
+                    maxAge: 30 * 24 * 60 * 60 * 1000,
+                    keys: [config.cookieKeys]
+                }));
 
-        /**
-         * passport.initialize() setups the functions to serializ/deserialize the
-         * user data from the request.
-         * If we are not using session we don't need passport.initilize()
-         */
-        app.use(passport.initialize());
-        app.use(passport.session())
+            /**
+             * passport.initialize() setups the functions to serializ/deserialize the
+             * user data from the request.
+             * If we are not using session we don't need passport.initilize()
+             */
+            app.use(passport.initialize());
+            app.use(passport.session())
 
-        const PORT = process.env.PORT || config.serverPort;
-        console.log(`Express server is running on port ${PORT}`)
-        /**
-         * create server running on https
-         */
-        https.createServer(options, app).listen(PORT)
+            const PORT = process.env.PORT || config.serverPort;
+            console.log(`Express server is running on port ${PORT}`)
+            /**
+             * create server running on https
+             */
+            https.createServer(options, app).listen(PORT)
 
     } catch (error) {
         console.error(error)
