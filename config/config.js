@@ -12,14 +12,14 @@ let envSetting
 !(async () => {
     if(process.env.NODE_ENV === 'production'){
         envSetting = {
-            dev:    require('./devConfig'),
-            production:   require('./prodConfig') 
+            dev: require('./devConfig'),
+            production: require('./prodConfig') 
         }
     } else {
         envSetting = {
-            local:  require('./localConfig'),
-            dev:    require('./devConfig'),
-            production:   require('./prodConfig') 
+            local: require('./localConfig'),
+            dev: require('./devConfig'),
+            production: require('./prodConfig') 
         }
     }
 })()
@@ -33,11 +33,11 @@ let config = {
 
 module.exports = async function configBuilder() {
     try {
-        let processEnv = process.env.NODE_ENV
+        let processEnv = process.env.NODE_ENV 
         if(processEnv !== currentEnv) {
             currentEnv = processEnv
         }
-        let setting = envSetting[config.env]
+        let setting = envSetting[currentEnv]
 
         // add all item in choosen env to confg obj
         // this will replace same item(s) from config with the choosen env
