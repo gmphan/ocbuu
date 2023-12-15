@@ -1,7 +1,11 @@
+/**
+ * I use heroku, and they have process.env.NODE_ENV=production
+ */
+
 let envSetting = {
     local:  require('./localConfig'),
     dev:    require('./devConfig'),
-    prod:   require('./prodConfig')
+    production:   require('./prodConfig') 
 }
 
 let currentEnv = 'local'
@@ -12,7 +16,7 @@ let config = {
 
 module.exports = async function configBuilder() {
     try {
-        let processEnv = process.env['ENV']
+        let processEnv = process.env.NODE_ENV
         if(processEnv !== currentEnv) {
             currentEnv = processEnv
         }
