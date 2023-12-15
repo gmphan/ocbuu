@@ -104,6 +104,7 @@ function routeRegister() {
                  * we want to run React and Express in different server
                  * while developing so that we can develop them separately
                  */
+                console.log(`config in registerRoute ${config.env}`)
                 if(config.env !== 'local') {
                     app.use(express.static('client/build'))
                     require(clientRoute)(app)
