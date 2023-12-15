@@ -19,15 +19,15 @@ let config, certKeys
 
 !(async () => {
     try {
-            config      = await configBuilder();
-            certKeys    = await createCert();
+            config      = await configBuilder(); 
+            // certKeys    = await createCert();
             /**
              * options to implement https
              */
-            const options = {
-                key: certKeys.serviceKey,
-                cert: certKeys.certificate
-            }
+            // const options = {
+            //     key: certKeys.serviceKey,
+            //     cert: certKeys.certificate
+            // }
 
             await mongoDbCon();
             await routeRegister();
@@ -50,11 +50,20 @@ let config, certKeys
             app.use(passport.session())
 
             const PORT = process.env.PORT || config.serverPort;
-            console.log(`Express server is running on port ${PORT}`)
+            
             /**
              * create server running on https
              */
-            https.createServer(options, app).listen(PORT)
+            // https.createServer(options, app).listen(PORT)
+
+            /**
+             * I removed https because heroku dyno don't deal with https
+             * https will have to be set on heroku loadbalance which is 
+             * the layer between getting to my dyno 
+             */
+            app.listen(PORT, () => {
+                console.log(`Express server is running on port ${PORT}`)
+            })
 
     } catch (error) {
         console.error(error)

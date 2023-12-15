@@ -28,13 +28,13 @@ let envSetting
 let currentEnv = 'local'
 let config = {
     env: currentEnv,
-    serverPort: 4000
+    serverPort: 8000
 }
 
 module.exports = async function configBuilder() {
     try {
         let processEnv = process.env.NODE_ENV 
-        if(processEnv !== currentEnv) {
+        if(processEnv !== currentEnv && processEnv !== undefined) {
             currentEnv = processEnv
         }
         let setting = envSetting[currentEnv]
