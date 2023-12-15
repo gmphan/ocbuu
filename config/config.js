@@ -25,19 +25,18 @@ let envSetting
 })()
 
 
-let currentEnv = 'local'
 let config = {
-    env: currentEnv,
+    env: 'local',
     serverPort: 8000
 }
 
 module.exports = async function configBuilder() {
     try {
         let processEnv = process.env.NODE_ENV 
-        if(processEnv !== currentEnv && processEnv !== undefined) {
-            currentEnv = processEnv
+        if(processEnv !== config.env && processEnv !== undefined) {
+            config.env = processEnv
         }
-        let setting = envSetting[currentEnv]
+        let setting = envSetting[config.env]
 
         // add all item in choosen env to confg obj
         // this will replace same item(s) from config with the choosen env
