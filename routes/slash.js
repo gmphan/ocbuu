@@ -1,5 +1,5 @@
 module.exports = async (app) => {
-    app.get('/', async (req, res) => {
+    app.get('/slash', async (req, res) => {
         res.send({hi: 'slash'})
     })
 }
