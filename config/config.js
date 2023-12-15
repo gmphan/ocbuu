@@ -45,7 +45,7 @@ module.exports = async function configBuilder() {
        for(let item in setting){
             config[item] = setting[item]
         }
-    
+        
         return (config)
 
     } catch (error) {

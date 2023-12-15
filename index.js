@@ -20,6 +20,7 @@ let config, certKeys
 !(async () => {
     try {
         config      = await configBuilder();
+        console.log(config)
         certKeys    = await createCert();
         /**
          * options to implement https
