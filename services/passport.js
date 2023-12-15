@@ -41,7 +41,15 @@ let config
             {
                 clientID: config.googleClientID,
                 clientSecret: config.googleClientSecret,
-                callbackURL: '/auth/google/callback'
+                callbackURL: '/auth/google/callback',
+                proxy: true //this will trust all communication from heroku
+                /**
+                 * when develop on local http://localhost is ok
+                 * but when on production our app only trust https - passport thing
+                 * when https callback from google get to heroku proxy, it became http
+                 * and passport don't trust it that why we have to set proxy to true,
+                 * so it can trust all proxy.
+                 */
             },
             (accessToken, refreshToken, profile, done) => {
                 User.findOne({ googleId: profile.id})
