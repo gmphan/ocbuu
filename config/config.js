@@ -2,11 +2,28 @@
  * I use heroku, and they have process.env.NODE_ENV=production
  */
 
-let envSetting = {
-    local:  require('./localConfig'),
-    dev:    require('./devConfig'),
-    production:   require('./prodConfig') 
-}
+let envSetting 
+
+/** 
+ * this immediately function was made special for envSetting
+ * I don't want to push localConfig.js. When the app run in 
+ * heroku, require('./localConfig') will yield an error
+ */
+!(async () => {
+    if(process.env.NODE_ENV === 'production'){
+        envSetting = {
+            dev:    require('./devConfig'),
+            production:   require('./prodConfig') 
+        }
+    } else {
+        envSetting = {
+            local:  require('./localConfig'),
+            dev:    require('./devConfig'),
+            production:   require('./prodConfig') 
+        }
+    }
+})()
+
 
 let currentEnv = 'local'
 let config = {
