@@ -2,7 +2,7 @@
  * I use heroku, and they have process.env.NODE_ENV=production
  */
 
-let envSetting 
+let envSetting
 
 /** 
  * this immediately function was made special for envSetting

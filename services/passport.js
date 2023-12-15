@@ -46,7 +46,7 @@ let config
                 /**
                  * when develop on local http://localhost is ok
                  * but when on production our app only trust https - passport thing
-                 * when https callback from google get to heroku proxy, it became http
+                 * when https callback from google get to heroku proxy, it become http
                  * and passport don't trust it that why we have to set proxy to true,
                  * so it can trust all proxy.
                  */

@@ -1,0 +1,1 @@
+* Everytime I configure a new Authorized JavaScript origins or Authorized redirect URIs, I have to reload the React side on local. Also, there will at least five minutes waiting time until the service can start working. 

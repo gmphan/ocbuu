@@ -58,8 +58,8 @@ let config, certKeys
 
             /**
              * I removed https because heroku dyno don't deal with https
-             * https will have to be set on heroku loadbalance which is 
-             * the layer between getting to my dyno 
+             * https come with on heroku loadbalance which is 
+             * the layer before any communicate get to my dyno 
              */
             app.listen(PORT, () => {
                 console.log(`Express server is running on port ${PORT}`)
@@ -89,11 +89,11 @@ function routeRegister() {
                     return false
                 }
 
-                let lastRoute;
+                let clientRoute;
                 for(let i = 0; i < filePaths.length; i++) {
                     // console.log(path.parse(filePaths[i]).name)
                     if(path.parse(filePaths[i]).name === 'client'){
-                        lastRoute = filePaths[i]
+                        clientRoute = filePaths[i]
                         continue;
                     } 
                     require(filePaths[i])(app)
@@ -106,7 +106,7 @@ function routeRegister() {
                  */
                 if(config.env !== 'local') {
                     app.use(express.static('client/build'))
-                    require(lastRoute)(app)
+                    require(clientRoute)(app)
                 }
             })
             resolve(true)
