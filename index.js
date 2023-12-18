@@ -28,7 +28,6 @@ let config, certKeys
             //     key: certKeys.serviceKey,
             //     cert: certKeys.certificate
             // }
-
             await mongoDbCon();
             await routeRegister();
 

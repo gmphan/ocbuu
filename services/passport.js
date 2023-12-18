@@ -51,24 +51,18 @@ let config
                  * so it can trust all proxy.
                  */
             },
-            (accessToken, refreshToken, profile, done) => {
-                User.findOne({ googleId: profile.id})
-                    .then((existingUser) => {
-                        if(existingUser) {
-                            /**
-                             * null mean everything is good
-                             * and we give google the user (the googleId)
-                             * so google can close the connection
-                             */
-                            console.log(existingUser)
-                            done(null, existingUser)
-                        } else {
-                            new User({ googleId: profile.id })
-                                .save()
-                                .then(user => done(null, user))
-                        }
-                    })
-                
+            async (accessToken, refreshToken, profile, done) => {
+                let existingUser = await User.findOne({ googleId: profile.id});
+                if(existingUser) {
+                    /**
+                     * null mean everything is good
+                     * and we give google the user (the googleId)
+                     * so google can close the connection
+                     */
+                    return done(null, existingUser)
+                } 
+                let user = new User({ googleId: profile.id }).save()
+                return done(null, user)           
             }
         )
     )
