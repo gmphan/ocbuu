@@ -3,10 +3,11 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 import Header from "./Header";
+import Landing from "./Landing";
 
 const Dashboard = () =><h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
-const Landing = () => <h2>Landing</h2>;
+
 
 
 class App extends Component {
@@ -16,7 +17,7 @@ class App extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container #e0e0e0 grey lighten-2">
                 <BrowserRouter>
                     <Header />
                     <Routes>
