@@ -3,12 +3,16 @@ import { SET_ACTIVE_LINK } from "../actions/types";
 function navReducer(state = '/', action) {
     switch (action.type) {
         case SET_ACTIVE_LINK:
-            console.log('state in navReducer', state);
-            return {activeLink: action.payload};
+            return action.payload;
         default:
-            console.log('state in navReducer at default', state);
-            return {activeLink: state};
+            return state;
     }
 }
 
 export default navReducer;
+
+/**
+ * return action.payload is the right way
+ * vs return {activeLink: action.payload} this will messup a lot of think because 
+ * the store will store the wholething in another layer of object. 
+ */
