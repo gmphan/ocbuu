@@ -1,12 +1,14 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { fetchResumeHeader } from '../../redux'
 // import { nanoid } from "nanoid";
 
 const ResumeHeader = (props) => {
-    const headerInfo = props.data?.map((item) => (
+    // console.log('resumeHeaderComp', resumeHeader)
+    const headerInfo = props.resumeHeader.data?.map((item) => (
         <div className="row" id={item.id} key={item.id} style={{textAlign:'center'}}>
             <h1>
-                {props.resumeHeaderReducer}
+                {props.resumeHeader.resumeHeaderReducer}
             </h1>
             <h1>{item.firstName + ' ' + item.lastName}</h1>
                 <p>
@@ -30,4 +32,14 @@ const ResumeHeader = (props) => {
         </> 
      );
 }
-export default ResumeHeader;
+
+const mapStateToProps = state => {
+    console.log('mapState', state.resumeHeader)
+    return {
+        resumeHeader: state.resumeHeader
+    }
+}
+
+
+
+export default connect(mapStateToProps)(ResumeHeader);
