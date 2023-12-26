@@ -1,19 +1,18 @@
 import React from "react";
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
-import { connect } from 'react-redux'
-import * as actions from '../actions'
-import Header from "./Header";
-import Home from "./Home";
-import Dashboard from "./Dashboard";
-import Blogs from "./Blogs";
-import Contact from "./Contact";
-
+import Nav from '../nav'
+import Home from "../../pages/home"
+import Dashboard from "../dashboard";
+import Blogs from "../../pages/blogs";
+import Contact from "../../pages/contact";
+import Resume from "../../pages/resume"
+import UsersContainer from "../usersContainer";
 
 
 
 const App = (props) => {
-    console.log('props in App', props)
-    props.fetchUser();    
+    // console.log('props in App', props)
+    // props.fetchUser();    
     
     /**
      * below are the default state of activeLink
@@ -22,17 +21,20 @@ const App = (props) => {
      * the nav would show active on home even the url
      * says something different - because of the default state
      */
-    props.setActiveLink(window.location.pathname);
+    // props.setActiveLink(window.location.pathname);
 
     return (
-        <div className="container #e0e0e0 grey lighten-2">
+        <div className="container-fluid #e0e0e0 grey lighten-2">
             <BrowserRouter>
-                <Header />
+                <Nav />
+                {/* <Header /> */}
+                {/* <UsersContainer /> */}
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/blogs" element={<Blogs />} />
                     <Route path="/contact" element={<Contact />} />
+                    <Route path="/resume" element={<Resume />} />
                 </Routes>
             </BrowserRouter>
         </div>
@@ -40,4 +42,5 @@ const App = (props) => {
 }
 
 
-export default connect(null, actions)(App);
+// export default connect(null, actions)(App);
+export default App;
