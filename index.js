@@ -7,10 +7,16 @@ const path = require('path')
 const dir = require('node-dir')
 const https = require('https')
 const pem = require('pem')
-// const { MongoClient, ServerApiVersion } = require('mongodb');
 
+//I don't use MongoClient, but Mongoose modeling tool
+// const { MongoClient, ServerApiVersion } = require('mongodb'); 
 
+/**
+ * creating Selection in MongoDb
+ */
 require('./models/User')
+require('./models/ResumeHeader')
+
 require('./services/passport')
 
 
@@ -30,7 +36,7 @@ let config, certKeys
             // }
             await mongoDbCon();
             await routeRegister();
-
+            app.use(express.json());
             /**
              * implement cookieSesstion to app Express.
              */
@@ -131,8 +137,8 @@ function mongoDbCon() {
             
         } catch (error) {
             console.error(`error from mongoDbCon() ${error}`)
-        }
-       
+        } 
+    
     })
 }
 

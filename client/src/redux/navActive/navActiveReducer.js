@@ -1,7 +1,7 @@
 import { SET_ACTIVE_LINK } from "./navActiveTypes";
 
 const initState = {
-    link : '/',
+    link : window.location.pathname,
     error: ''
 }
 

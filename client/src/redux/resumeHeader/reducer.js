@@ -6,23 +6,24 @@ import {
 
 const initState = {
     loading: false,
-    data: [{
-        id: '1',
-        firstName: "Giang",
-        lastName: "Phan",
-        headLine: "Full Stack Developer with a Passion for Building User-Friendly Applications",
-        phoneNum: "678 000 0000", //should be optional
-        email: "gmphan7@gmail.com",
+    data: [],
+    // data: [{
+    //     id: '1',
+    //     firstName: "Giang",
+    //     lastName: "Phan",
+    //     headLine: "Full Stack Developer with a Passion for Building User-Friendly Applications",
+    //     phoneNum: "678 000 0000", //should be optional
+    //     email: "gmphan7@gmail.com",
     
-        Country: "United States",
-        streetAddress: "2192 Murry Trail optional",
-        cityState: "Morrow, GA",
-        postalCode: "30260",
-        relocation: "no", //optional
+    //     Country: "United States",
+    //     streetAddress: "2192 Murry Trail optional",
+    //     cityState: "Morrow, GA",
+    //     postalCode: "30260",
+    //     relocation: "no", //optional
     
-        employmentEligibility: "Authorized to work in the US for any employer"
+    //     employmentEligibility: "Authorized to work in the US for any employer"
     
-    }],
+    // }],
     error: ''
 }
 

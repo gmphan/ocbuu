@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchResumeHeader } from '../../redux'
+import { fetchResumeHeader, postResumeHeader } from '../../redux'
 // import { nanoid } from "nanoid";
 
+
 const ResumeHeader = (props) => {
-    // console.log('resumeHeaderComp', resumeHeader)
-    const headerInfo = props.resumeHeader.data?.map((item) => (
-        <div className="row" id={item.id} key={item.id} style={{textAlign:'center'}}>
-            <h1>
-                {props.resumeHeader.resumeHeaderReducer}
-            </h1>
+    useEffect( () => {
+        props.fetchResumeHeader()
+        // props.postResumeHeader()
+    }, [props.fetchResumeHeader])
+    
+    
+    return props.resumeHeader.data?.map((item) => (
+        
+        <div className="row" id={item._id} key={item._id} style={{textAlign:'center'}}>
             <h1>{item.firstName + ' ' + item.lastName}</h1>
                 <p>
                     {item.headLine}<br/>
@@ -24,22 +28,23 @@ const ResumeHeader = (props) => {
             {/* <Col md='8' className="" style={{}}></Col> */}
             {/* <Col md='4'></Col> */}
             {/* <Col md='4'></Col> */}
+            
         </div>
     ))
-    return ( 
-        <>
-            {headerInfo}
-        </> 
-     );
 }
 
 const mapStateToProps = state => {
-    console.log('mapState', state.resumeHeader)
+    // console.log('mapState', state.resumeHeader)
     return {
         resumeHeader: state.resumeHeader
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchResumeHeader: () => dispatch(fetchResumeHeader()),
+        postResumeHeader: () => dispatch(postResumeHeader())
+    }
+}
 
-
-export default connect(mapStateToProps)(ResumeHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(ResumeHeader);

@@ -28,7 +28,7 @@ const Nav = ({ authUserData, fetchAuthUser, navActive, setActiveLink }) => {
     
     
 
-    console.log(navActive)
+    // console.log(navActive)
     function handleClick(link) {
        setActiveLink(link)
     }
@@ -38,7 +38,7 @@ const Nav = ({ authUserData, fetchAuthUser, navActive, setActiveLink }) => {
             <div className="container nav-wrapper">
 
                 <ul className="left">
-                    <li className={`${navActive.link === '/' ? 'active' : ''}`}>
+                    <li className={`${(navActive.link === '/' || navActive.link === '/dashboard') ? 'active' : ''}`}>
                         <Link className="waves-effect waves-light btn" to={authUserData.user ? '/dashboard' : '/'} onClick={() => handleClick('/')}>Home</Link>                        
                     </li>
                     <li className={navActive.link === '/blogs' ? 'active' : ''}>
@@ -49,7 +49,7 @@ const Nav = ({ authUserData, fetchAuthUser, navActive, setActiveLink }) => {
                     </li>                    
                 </ul> 
 
-                <Link to={authUserData.user ? '/dashboard' : '/'} className="brand-logo center">
+                <Link to={authUserData.user ? '/dashboard' : '/'} className="brand-logo center" onClick={() => handleClick('/')}>
                     <i className="material-icons">
                         <img src={AVATAR} alt="avatar" style={{ width: 60, borderRadius: '50%' }} />
                     </i>

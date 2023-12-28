@@ -1,4 +1,4 @@
-// import axios from 'axios'
+import axios from 'axios'
 import {
     FETCH_RESUME_HEADER_REQUEST,
     FETCH_RESUME_HEADER_SUCCESS,
@@ -6,20 +6,48 @@ import {
 } from './types'
 
 export const fetchResumeHeader = () => {
-    return async (dispatch) => {
-        //request the data from mongodb - need to create a collection in mongodb
-        //when success return result
-        //when failure return error
-        
+    return async (dispatch) => {        
         try {
             dispatch(fetchResumeHeaderRequest())
-            //const res = await axios.get ...
-            const res = { data: 'testing '}
+            const res = await axios.get('/api/resume/header')
+            // console.log(res.data)
             dispatch(fetchResumeHeaderSuccess(res.data))
         } catch (error) {
             dispatch(fetchResumeHeaderFailure(error.message))
         }
     }
+}
+
+export const postResumeHeader = (resumeHeaderData) => {
+    resumeHeaderData = {
+        firstName: "Michael",
+        lastName: "Phan",
+        headLine: "Full Stack Developer with a Passion for Building User-Friendly Applications",
+        phoneNum: "678 000 0000", //should be optional
+        email: "gmphan7@gmail.com",
+        Country: "United States",
+        streetAddress: "2192 Murry Trail optional",
+        cityState: "Morrow, GA",
+        postalCode: "30260",
+        relocation: "no", //optional
+        employmentEligibility: "Authorized to work in the US for any employer",
+        createdDate: new Date(),
+        updatedDate: new Date()
+    }
+    return async dispatch => {
+        try {
+            const result = await axios.post('/api/resume/header', resumeHeaderData
+            // {
+            //     name: "Alice",
+            //     age: 25,
+            //     hobbies: ["reading", "writing", "coding"]
+            //   }
+            )
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+    
 }
 
 const fetchResumeHeaderRequest = () => {
