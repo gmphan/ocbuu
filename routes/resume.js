@@ -1,64 +1,110 @@
 const mongoose = require('mongoose')
+// const ResumeHeader = mongoose.model('resumeHeader')
 const ResumeHeader = mongoose.model('resumeHeader')
 
 module.exports = async (app) => {
     app.get('/api/resume/header', async (req, res) => {
-        let googleId = req.user.googleId;
-        let result
+        // let googleId = req.user.googleId;
+        let resumeHeader
         try {
             /**
              * Get the latest document insert from ResumeHeader selection
              */
-            // const result = await ResumeHeader.find().limit(1).sort({$natural:-1})
-
+            resumeHeader = await ResumeHeader.find().limit(1).sort({$natural:-1})
+            // console.log(resumeHeader)
             // get the record by google Id
-            result = await ResumeHeader.findOne({googleId})
-            res.send([result]) //return in array so the client can use the map function
+            // result = await ResumeHeader.findOne({googleId})
+
+            res.send(resumeHeader) //
         } catch (error) {
             res.status(422).send(error)
         }
         
     })
 
+    app.get('/api/resume', async (req, res) => {
+        let result
+        try {
+            /**
+             * this is a public endpoint no need authorization.
+             * Get the latest document insert from Resume selection
+             * remember selection like a table, each document like a each row
+             * Don't use googleId because I want to show my resume at all time
+             * not just when sign in. 
+             */
+            result = await Resume.find().limit(1).sort({$natural:-1})
+            res.send(result)
+
+        } catch (error) {
+            res.status(422).send(error)
+        }
+    })
+
     
     app.post('/api/resume/header', async (req, res) => {
+        // console.log('headerBody', req.body)
         const {
-            googleId, firstName, lastName, headLine, phoneNum,
-            email, country, streetAddress, cityState,
-            postalCode, relocation, employmentEligibility, 
-            createdDate, updatedDate
+            _id, 
+            firstName, 
+            lastName, 
+            headline, 
+            phoneNum,
+            email, 
+            country, 
+            streetAddress, 
+            cityState,
+            zipCode, 
+            linkIn, 
+            gitHub
         } = req.body;
-
+        
         const resumeHeaderData = new ResumeHeader({
             // id will be automatically created by MongoDb
-            googleId, firstName, lastName, headLine, phoneNum,
-            email, country, streetAddress, cityState,
-            postalCode, relocation, employmentEligibility, 
-            createdDate, updatedDate
+            firstName, 
+            lastName, 
+            headline, 
+            phoneNum,
+            email, 
+            country, 
+            streetAddress, 
+            cityState,
+            zipCode, 
+            linkIn, 
+            gitHub, 
+            createdDate: new Date(),
+            updatedDate: new Date()
         })
         try {
             let result
-            const existingRecord = await ResumeHeader.findOne({googleId})
+            
+            const existingRecord = await ResumeHeader.findOne({_id})
             if(existingRecord) {
-                result = await ResumeHeader.findOneAndUpdate({googleId}, 
+                result = await ResumeHeader.findByIdAndUpdate({_id}, 
                     {
-                        firstName, firstName, 
-                        lastName, headLine, 
-                        phoneNum, email, 
-                        country, streetAddress, 
-                        cityState,postalCode, 
-                        relocation, employmentEligibility, 
-                        updatedDate: new Date()},
+                        firstName, 
+                        lastName, 
+                        headline, 
+                        phoneNum,
+                        email, 
+                        country, 
+                        streetAddress, 
+                        cityState,
+                        zipCode, 
+                        linkIn, 
+                        gitHub,
+                        updatedDate: new Date()
+                    },                           
                     {
-                        new: true,
-                        runValidators: true,
+                        upsert: true,
+                        runValidators: true
                     })
-            } else {
+            } else if(!existingRecord) {
                 result = await resumeHeaderData.save();
+                res.send (result)
             }
-            res.send(result.googleId)
+            res.send(result._id)
         } catch (error) {
-            res.status(422).send(error)
+            // res.status(422).send(error)
         }
         
     })

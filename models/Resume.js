@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const resumeHeaderSchema = new Schema({
+const resumeSchema = new Schema({
+    header: {
         firstName: String,
         lastName: String,
         headline: String,
@@ -15,6 +16,7 @@ const resumeHeaderSchema = new Schema({
         gitHub: String,
         createdDate: Date,
         updatedDate: Date
+    }
 })
 
-mongoose.model('resumeHeader', resumeHeaderSchema);
+mongoose.model('resume', resumeSchema);

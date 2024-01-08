@@ -5,7 +5,7 @@ module.exports = function(app) {
     // '/api', // this like wildcard for any api route start with /api
     ['/api/*', '/auth/google'], //this is a fix api route
     createProxyMiddleware({
-      target: 'http://localhost:8000',
+      target: 'http://localhost:50000',
     //   changeOrigin: true, // not understand about this one, yet.
     })
   );

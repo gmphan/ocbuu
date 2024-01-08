@@ -10,7 +10,7 @@ let envSetting = {
 
 let config = {
     env: 'local',
-    serverPort: 8000
+    serverPort: 50000
 }
 
 module.exports = async function configBuilder() {

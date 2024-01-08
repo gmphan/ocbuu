@@ -15,7 +15,9 @@ const pem = require('pem')
  * creating Selection in MongoDb
  */
 require('./models/User')
+require('./models/Resume')
 require('./models/ResumeHeader')
+
 
 require('./services/passport')
 

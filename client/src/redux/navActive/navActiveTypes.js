@@ -1,1 +1,0 @@
-export const SET_ACTIVE_LINK = 'SET_ACTIVE_LINK'

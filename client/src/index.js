@@ -1,4 +1,4 @@
-import 'materialize-css/dist/css/materialize.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css' //this is very important for manything to work
 import React from "react";
 import { createRoot } from "react-dom/client"; //React 18
 import { Provider } from "react-redux";
@@ -13,6 +13,5 @@ const root = createRoot(container);
 root.render(
         <React.StrictMode>
                 <Provider store={store}><App /></Provider>
-                {/* <App /> */}
         </React.StrictMode>
 	);

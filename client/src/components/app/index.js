@@ -1,12 +1,12 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
-import Nav from '../nav'
+import { Container } from "reactstrap";
+import NavBar from '../nav'
 import Home from "../../pages/home"
 import Dashboard from "../dashboard";
 import Blogs from "../../pages/blogs";
 import Contact from "../../pages/contact";
 import Resume from "../../pages/resume"
-import UsersContainer from "../usersContainer";
 
 
 
@@ -24,20 +24,24 @@ const App = (props) => {
     // props.setActiveLink(window.location.pathname);
 
     return (
-        <div className="container-fluid #e0e0e0 grey lighten-2">
+        // <div className="container-fluid #e0e0e0 grey lighten-2">
             <BrowserRouter>
-                <Nav />
-                {/* <Header /> */}
-                {/* <UsersContainer /> */}
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/blogs" element={<Blogs />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/resume" element={<Resume />} />
-                </Routes>
+                <Fragment>
+                    <NavBar />
+                    <main className="my-5 py-5">
+                    <Container className="px-0" >
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route path="/blogs" element={<Blogs />} />
+                            <Route path="/contact" element={<Contact />} />
+                            <Route path="/resume" element={<Resume />} />
+                        </Routes>
+                    </Container>
+                    </main>
+                </Fragment>
             </BrowserRouter>
-        </div>
+        // </div>
     )
 }
 

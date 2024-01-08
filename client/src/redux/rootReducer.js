@@ -1,14 +1,14 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import userReducer from './user/userReducer'
 import authUserReducer from './authUser/authUserReducer'
-import navActiveReducer from './navActive/navActiveReducer'
-import resumeHeaderReducer from './resumeHeader/reducer'
+import resume from './resume/reducer'
+import resumeHeader from './resumeHeader/reducer'
 
 const rootReducer = combineReducers({
     user: userReducer,
     authUser: authUserReducer,
-    navActive: navActiveReducer,
-    resumeHeader: resumeHeaderReducer
+    resume,
+    resumeHeader
 })
 
 export default rootReducer
