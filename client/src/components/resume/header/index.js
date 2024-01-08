@@ -43,7 +43,7 @@ const ResumeHeader = ({resumeHeader, fetchResumeHeader}) => {
                     {/* {item.phoneNum}<br/> */}
                     {item.email}<br/>
                     {item.cityState + ' ' + item.zipCode}<br/>
-                    <a href="/contact" target="_blank" rel="noopener noreferrer" >Contact Me</a><br/>
+                    <a href="/contact" rel="noopener noreferrer" >Contact Me</a><br/>
                     <a href={item.linkIn} target="_blank" rel="noopener noreferrer">LinkedIn</a><br/>
                     <a href={item.gitHub} target="_blank" rel="noopener noreferrer">GitHub</a><br/><br/>
                 </p>  

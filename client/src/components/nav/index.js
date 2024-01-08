@@ -15,7 +15,7 @@ function NavBar({authUserData, fetchAuthUser}) {
         fetchAuthUser()
     }, []) 
 
-    console.log(authUserData)
+    // console.log(authUserData)
     function renderContent() {
         return authUserData.loading ? (
             <Col><Button color="primary" outline>Loading</Button></Col>

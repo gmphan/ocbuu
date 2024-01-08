@@ -27,7 +27,7 @@ const HeaderForm = (props) => {
             <FormGroup row>
                 <Label for="headLine" sm={2}>Head Line</Label>
                 <Col sm={10}>
-                    <Input type='text' name='headLine' placeholder='your headline' value={formData.headLine} onChange={handleChange} />
+                    <Input type='text' name='headLine' placeholder='your headline' value={formData.headline} onChange={handleChange} />
                 </Col>                
             </FormGroup> 
             <FormGroup row>

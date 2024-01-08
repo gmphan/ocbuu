@@ -16,6 +16,19 @@ export const fetchResumeHeader = () => {
         }
     }
 }
+
+export const postResumeHeader = (postBody) => {
+    return async dispatch => {
+        try {
+            const postRes = await axios.post('/api/resume/header', postBody)
+            console.log(postRes.data)
+            dispatch(fetchResumeHeader()) //this will refresh the resume header
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+}
+
 const fetchResumeHeaderRequest = () => {
     return {
         type: FETCH_RESUME_HEADER_REQUEST
