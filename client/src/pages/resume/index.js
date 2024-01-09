@@ -1,6 +1,8 @@
 import ResumeHeader from "../../components/resume/header"
+import Summary from "../../components/resume/summary";
 import {Container} from "reactstrap"
 import { Helmet } from "react-helmet";
+
 
 const Resume = () => {
     return (
@@ -9,6 +11,7 @@ const Resume = () => {
                 <title>Resume</title>
             </Helmet>
             <ResumeHeader />
+            <Summary />
         </Container>
     )
 }
