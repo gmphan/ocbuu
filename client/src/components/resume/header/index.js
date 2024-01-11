@@ -15,7 +15,6 @@ const ResumeHeader = ({resumeHeader, fetchResumeHeader, authUser}) => {
 
     const [editModal, setEditModal] = useState(false);
 
-
     if(resumeHeader.loading) {
         return (
             <div>

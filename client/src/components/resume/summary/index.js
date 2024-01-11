@@ -2,36 +2,49 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Button, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { CustomRow, CustomP, CustomPAlignLeft, CustomH3 } from '../customStyle'
+import { fetchResumeSummary } from '../../../redux/resumeSummary/actions'
 
-function Summary({authUser}) {
+function Summary({authUser, resumeSummary, fetchResumeSummary}) {
+    useEffect(() => {
+        fetchResumeSummary()
+    }, [fetchResumeSummary])
 
-    return(
-        <>
-        <CustomH3>Summary</CustomH3>
-        <CustomRow>
-            <CustomPAlignLeft>
-            I have been working as a developer since 2014 and I am passionate about programming. 
-            Over the years, I have gained experience in various programming languages and environments, 
-            including C#, Java, PHP, and JavaScript. In particular, I have been using JavaScript 
-            extensively and it has become my favorite language in recent years. I have worked on 
-            many projects using Node.js and I absolutely love it. I was fortunate to work with some 
-            brilliant developers at Clayton State University, where we developed several applications 
-            using Node.js. We used new frameworks like Hapi and Fastify, which did not have many 
-            pre-built packages. This forced me to learn how to bundle different packages together or 
-            write my own modularity packages to achieve what we wanted. We even created our own 
-            deployment environment using Kubernetes, Docker Swarm, and Crontab, and containerized 
-            everything. Recently, I have started using Express.js and React.js to focus on larger 
-            implementations with the help of pre-built packages from larger communities. All the 
-            configuration from the bare-bone development in the past has paid off so well that I can 
-            easily understand and implement any package from any developer or developing community. 
-            I hope to continue my passion for programming and problem-solving for as long as possible 
-            and enjoy being a developer.
-            </CustomPAlignLeft>
-            {renderModal(authUser)}
-        </CustomRow>
-        </>  
-    )
-
+    if(resumeSummary.loading) {
+        return (
+            <>
+                <CustomH3>Summary</CustomH3>
+                <CustomRow>
+                    <CustomPAlignLeft>
+                        <h2>Loading...</h2>
+                    </CustomPAlignLeft>                   
+                </CustomRow>
+            </>
+        )
+    } else if (resumeSummary.error != '') {
+        return (
+            <>
+                <CustomH3>Summary</CustomH3>
+                <CustomRow>
+                    <CustomPAlignLeft>
+                    <h4>{resumeSummary.error}</h4>
+                    <p>Please refresh the page.</p>
+                    </CustomPAlignLeft>                   
+                </CustomRow>
+            </>  
+        )
+    } else if (resumeSummary.loading === false && resumeSummary.data.length != 0) {
+        return resumeSummary.data?.map((item) => (
+            <>
+                <CustomH3>Summary</CustomH3>
+                <CustomRow>
+                    <CustomPAlignLeft>
+                        {item.summary}
+                    </CustomPAlignLeft> 
+                    {renderModal(authUser)}                   
+                </CustomRow>
+            </>  
+        ))
+    }
 }
 
 function renderModal(authUser) {
@@ -58,13 +71,14 @@ function renderModal(authUser) {
 
 const mapStateToProps = state => {
     return {
-        authUser: state.authUser
+        authUser: state.authUser,
+        resumeSummary: state.resumeSummary
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        fetchResumeSummary: () => dispatch(fetchResumeSummary())
     }
 }
 

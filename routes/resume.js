@@ -1,8 +1,24 @@
 const mongoose = require('mongoose')
-// const ResumeHeader = mongoose.model('resumeHeader')
-const ResumeHeader = mongoose.model('resumeHeader')
+
+
+const ResumeHeader = mongoose.model('resumeHeader');
+const ResumeSummary = mongoose.model('resumeSummary');
 
 module.exports = async (app) => {
+
+    app.get('/api/resume/summary', async(req, res) => {
+        let resumeSummary
+        try {
+
+            // the below ResumeSummary (model) have to be Capitalized 
+            resumeSummary = await ResumeSummary.find().limit(1).sort({$natural:-1})
+            
+            res.send(resumeSummary)
+        } catch (error) {
+            res.status(422).send(error)
+        }
+    })
+
     app.get('/api/resume/header', async (req, res) => {
         // let googleId = req.user.googleId;
         let resumeHeader
