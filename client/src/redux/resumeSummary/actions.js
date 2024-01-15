@@ -19,6 +19,19 @@ export function fetchResumeSummary () {
     }
 }
 
+export function postResumeSummary (postBody) {
+    return async (dispatch) => {
+        try {
+            // console.log(postBody)
+            const postRes = await axios.post('/api/resume/summary', postBody)
+            // console.log(postRes)
+            dispatch(fetchResumeSummary())
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+}
+
 function fetchResumeSummaryRequest() {
     return {
         type: FETCH_RESUME_SUMMARY_REQUEST

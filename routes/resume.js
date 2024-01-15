@@ -19,6 +19,38 @@ module.exports = async (app) => {
         }
     })
 
+    app.post('/api/resume/summary', async(req, res) => {
+        const {
+            _id, summary
+        } = req.body;
+        // console.log(req.body)
+        const newResumeSummaryDoc = new ResumeSummary({    
+            summary,
+            createdDate: new Date(),
+            updatedDate: new Date()
+        })
+        try {
+            let result;
+            let existingDoc = await ResumeSummary.findOne({_id});
+            if(existingDoc) {
+                result = await ResumeSummary.findByIdAndUpdate({_id}, {
+                    summary,
+                    updatedDate: new Date()
+                }, {
+                    upsert: true,
+                    runValidators: true
+                })
+            } else if (!existingDoc) {
+                result = await newResumeSummaryDoc.save();
+            }
+            res.send(result)
+        } catch (error) {
+            console.log('error from post summary api', error.message)
+        }
+
+        
+    })
+
     app.get('/api/resume/header', async (req, res) => {
         // let googleId = req.user.googleId;
         let resumeHeader
@@ -116,9 +148,9 @@ module.exports = async (app) => {
                     })
             } else if(!existingRecord) {
                 result = await resumeHeaderData.save();
-                res.send (result)
+        
             }
-            res.send(result._id)
+            res.send(result)
         } catch (error) {
             // res.status(422).send(error)
         }

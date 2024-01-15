@@ -21,7 +21,8 @@ module.exports = async function configBuilder() {
             envSetting.production = require('./prodConfig')
             config.env = processEnv
 
-        } else if(config.env === 'local') {
+        } else {
+            //remember default config.env was set to local
             envSetting.local = require('./localConfig')
         }
         // I don't know if I will have a dev env set up, yet

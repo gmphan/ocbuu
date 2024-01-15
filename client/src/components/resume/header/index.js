@@ -15,6 +15,8 @@ const ResumeHeader = ({resumeHeader, fetchResumeHeader, authUser}) => {
 
     const [editModal, setEditModal] = useState(false);
 
+    
+
     if(resumeHeader.loading) {
         return (
             <div>
@@ -43,7 +45,9 @@ const ResumeHeader = ({resumeHeader, fetchResumeHeader, authUser}) => {
                     <a href={item.gitHub} target="_blank" rel="noopener noreferrer">GitHub</a><br/>
                 </p>  
                 {renderModal(item)}
+                
             </CustomRow>
+            
         ))  
     } 
 
@@ -66,10 +70,10 @@ const ResumeHeader = ({resumeHeader, fetchResumeHeader, authUser}) => {
                     <Col md="12" style={{textAlign:'center'}}><Button color='primary' onClick={() => toggleEditModal()}  style={{}}>Edit</Button></Col>
                     {/* <Col md='4'></Col>  */}
                 </Row>          
-            
+                
                 <Modal size='lg' isOpen={editModal} toggle={ () => setEditModal(false)} centered>
                     <ModalHeader>Editing Resume Header</ModalHeader>
-                    <ModalBody><HeaderForm data={ item } setModal={setEditModal}/></ModalBody>
+                    <ModalBody><HeaderForm setModal={setEditModal}/></ModalBody>
                     <ModalFooter>
                         <Button className='btn-modal' color='secondary' onClick={ () => setEditModal(false)}>Cancel</Button>
                     </ModalFooter>
