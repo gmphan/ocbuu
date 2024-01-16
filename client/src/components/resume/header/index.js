@@ -32,14 +32,15 @@ const ResumeHeader = ({resumeHeader, fetchResumeHeader, authUser}) => {
         )
     } else if (resumeHeader.loading === false && resumeHeader.data.length !== 0){
         return resumeHeader.data?.map((item) => (
-            <CustomRow id={item._id} key={item._id} style={{textAlign:'center', marginBottom:10, marginTop:20}}>
+            <CustomRow id={item._id} key={item._id} style={{textAlign:'center', marginTop:20}}>
                 
-                <h2>{item.firstName + ' ' + item.lastName}</h2>
-                <p>
-                    {item.headline}<br/>
+                <h1>{item.firstName + ' ' + item.lastName}</h1>
+                <h4>{item.headline}</h4>
+                
+                <p style={{fontWeight:'bold'}}>                    
+                    {item.cityState + ' ' + item.zipCode + ', ' + item.country}<br/>
                     {/* {item.phoneNum}<br/> */}
-                    {item.email}<br/>
-                    {item.cityState + ' ' + item.zipCode}<br/>
+                    {item.email}<br/>                    
                     <a href="/contact" rel="noopener noreferrer" >Contact Me</a><br/>
                     <a href={item.linkIn} target="_blank" rel="noopener noreferrer">LinkedIn</a><br/>
                     <a href={item.gitHub} target="_blank" rel="noopener noreferrer">GitHub</a><br/>

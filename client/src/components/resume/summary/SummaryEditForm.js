@@ -13,13 +13,13 @@ const SummaryEditForm = ({resumeSummary, postResumeSummary, setModal}) => {
             <Form onSubmit={handleSave} key={formData._id}>
                 <FormGroup>
                     {/* <Label for="summary" sm={2}>Summary</Label> */}
-                    <Col sm={10}>
+                    <Col sm={12}>
                         <Input type='textarea' rows={10} name='summary' placeholder='summary' value={formData.summary} onChange={handleChange} />
                     </Col>     
                 </FormGroup>
                 <FormGroup>
-                    <Col sm={{size:4, offset: 2}}>
-                        <Button type='submit' color='primary' className='btn btn_primary btn_lg' style={{marginRight: 20}} >Save</Button>
+                    <Col sm={12} style={{textAlign:'center'}}>
+                        <Button type='submit' color='primary' className='btn btn_primary btn_lg'>Save</Button>
                     </Col>
                 </FormGroup>
             </Form>

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const CustomRow = styled.div`
     min-height:10px;
     margin-top: 10px;
-    // margin-bottom: 20px;
+    margin-bottom: 50px;
     padding-bottom:20px;
     overflow: auto;
 
@@ -16,6 +16,7 @@ export const CustomRow = styled.div`
     // border-style: groove;
     border: 1px solid #b3b3b3;
     border-radius: 5px;
+    box-shadow: 10px 5px 5px gray
 `
 export const CustomP = styled.p`
     margin-top: -5px;

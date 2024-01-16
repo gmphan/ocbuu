@@ -3,8 +3,82 @@ const mongoose = require('mongoose')
 
 const ResumeHeader = mongoose.model('resumeHeader');
 const ResumeSummary = mongoose.model('resumeSummary');
+const ResumeExperience = mongoose.model('resumeExperience');
 
 module.exports = async (app) => {
+
+    app.get('/api/resume/experience', async(req, res) => {
+        let resumeExperience;
+        try {
+            resumeExperience = await ResumeExperience.find()
+            // console.log(resumeExperience)
+            res.send(resumeExperience)
+        } catch (error) {
+            res.send(error.message)
+        }
+    })
+
+    app.post('/api/resume/experience', async(req, res) => {
+        const {
+            _id,
+            jobTitle,
+            company,
+            country,
+            cityState,
+            zipCode,
+            currentlyWorkHere,
+            startWorkingMonth,
+            startWorkingYear,
+            endWorkingMonth,
+            endWorkingYear,
+            description
+        } = req.body;
+
+        const newExperienceDoc = new ResumeExperience({
+            jobTitle,
+            company,
+            country,
+            cityState,
+            zipCode,
+            currentlyWorkHere,
+            startWorkingMonth,
+            startWorkingYear,
+            endWorkingMonth,
+            endWorkingYear,
+            description,
+            createdDate: new Date(),
+            updatedDate: new Date()
+        })
+
+        try {
+            let postRes;
+            let existingDoc = await ResumeExperience.findOne({_id})
+            if(existingDoc) {
+                postRes = await ResumeExperience.findByIdAndUpdate({_id}, {
+                    jobTitle,
+                    company,
+                    country,
+                    cityState,
+                    zipCode,
+                    currentlyWorkHere,
+                    startWorkingMonth,
+                    startWorkingYear,
+                    endWorkingMonth,
+                    endWorkingYear,
+                    description,
+                    updatedDate: new Date()
+                },{
+                    upsert: true,
+                    runValidators: true
+                })
+            } else if (!existingDoc) {
+                postRes = await newExperienceDoc.save();
+            }
+            res.send(postRes)
+        } catch (error) {
+            res.send(error.message)
+        }
+    })
 
     app.get('/api/resume/summary', async(req, res) => {
         let resumeSummary
@@ -45,10 +119,8 @@ module.exports = async (app) => {
             }
             res.send(result)
         } catch (error) {
-            console.log('error from post summary api', error.message)
+            res.send('error from post summary api', error.message)
         }
-
-        
     })
 
     app.get('/api/resume/header', async (req, res) => {

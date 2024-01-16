@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css' //this is very important for manything to work
+import './index.css';
 import React from "react";
 import { createRoot } from "react-dom/client"; //React 18
 import { Provider } from "react-redux";
@@ -11,7 +12,7 @@ import store from './redux/store'
 const container = document.getElementById('root')
 const root = createRoot(container);
 root.render(
-        <React.StrictMode>
-                <Provider store={store}><App /></Provider>
-        </React.StrictMode>
-	);
+                <React.StrictMode>
+                        <Provider store={store}><App /></Provider>
+                </React.StrictMode>
+        );

@@ -18,6 +18,7 @@ require('./models/User')
 require('./models/Resume')
 require('./models/ResumeHeader')
 require('./models/ResumeSummary')
+require('./models/ResumeExperience')
 
 
 require('./services/passport')
