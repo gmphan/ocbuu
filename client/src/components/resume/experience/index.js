@@ -1,31 +1,80 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import {CustomRow, CustomPAlignLeft, CustomPAlignRight, CustomH3} from './../customStyle'
 import { connect } from 'react-redux';
 import { fetchResumeExperience } from "../../../redux";
+import ExperienceForm from "./experienceForm";
 
 function Experience({fetchResumeExperience, resumeExperience}) {
     useEffect( () => {
         fetchResumeExperience()
     }, [fetchResumeExperience])
 
-    // console.log(resumeExperience)
+    // console.log(resumeExperience.data[0])
     
-    // still need to have edit option for each box of data like indeed
-    const months = {
-        '01': 'January',
-        '02': 'February',
-        '03': 'March',
-        '04': 'April',
-        '05': 'May',
-        '06': 'June',
-        '07': 'July',
-        '08': 'August',
-        '09': 'September',
-        '10': 'October',
-        '11': 'November',
-        '12': 'December'
+     /**
+     * inputData will be sent over to addNew and edit form
+     * the init inputData will be an empty array at first because 
+     * resumeExperience was empty as initstate from actions
+     * until setInputData called in toggleAddNewModal
+     */
+    const [inputData, setInputData] = useState(resumeExperience.data)
+    console.log('inputData', inputData)
+
+    const [addNewModal, setAddNewModal] = useState(false);
+    const toggleAddNewModal = () => {
+        setInputData({
+            jobTitle: '',
+            company: '',
+            country: '',
+            cityState: '',
+            zipCode: '',
+            currentlyWorkHere: '',
+            startWorkingMonth: '',
+            startWorkingYear: '',
+            endWorkingMonth: '',
+            endWorkingYear: '',
+            description: '',
+        })
+
+        // set isOpen to true 
+        setAddNewModal(!addNewModal)
     }
+
+    /**
+     * This is for Add New button and the button will bring up add-new-form modal
+     */
+    const modalAddNew = (
+        <>
+            <Row>
+                <Col md={6}>
+                    <CustomH3>Experiences</CustomH3>
+                </Col>
+                <Col md={6}>
+                    <CustomPAlignRight>
+                        <Button color="primary" className="btn-modal" onClick={toggleAddNewModal}>Add New</Button>
+                </CustomPAlignRight>
+                </Col>
+            </Row>
+            <Row>
+                <Modal size='lg' isOpen={addNewModal} toggle={() => setAddNewModal(false)}>
+                    <ModalHeader>New Experience</ModalHeader>
+                    <ModalBody><ExperienceForm inputData={inputData}/></ModalBody>
+                    <ModalFooter>
+                        <Button color="secondary" onClick={ () => setAddNewModal(false) }>
+                            Close
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+            </Row>
+        </>
+    )
+    
+    /**
+     * Go through an array of experience objects which was set to 
+     * inputData from the begining of this component
+     * to print each experience object out on browser
+     */
     const experienceDisplay = resumeExperience.data?.sort((a, b) =>
         a.currentlyWorkHere === false ? -1 :
         a.currentlyWorkHere === true ? 1 :
@@ -60,7 +109,7 @@ function Experience({fetchResumeExperience, resumeExperience}) {
     })
 
     return (<>
-        <CustomH3>Experience</CustomH3>
+        {modalAddNew}
         {experienceDisplay}
     </>)
 }
